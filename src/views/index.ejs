@@ -1,14 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('./includes/head.ejs'); %>
+  <%- include("includes/head") %>
 
-<body>
-  <form action="/" method="post">
-    <button type="submit">enviar</button>
-  </form>
+  <body>
+    <%- include("includes/navbar") %>
 
-    <h1>salve!</h1>
-    <script src="./assets/js/bundle.js"></script>
-</body>
+    <div class="continer">
+      <div class="row">
+        <div class="col-lg-2"></div>
+
+        <div class="col-lg-8 my-4">
+          <h1 class="text-center">Agenda</h1>
+          <p class="text-center lead">A página que você procura não existe.</p>
+
+          <div class="row">
+            <div class="col my-2">
+              <div class="alert alert-danger">Qualquer erro.</div>
+            </div>
+          </div>
+
+          <div class="responsive-table my-2">
+            <table class="table">
+              <thead>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+              </thead>
+              <tr>
+                <td>Enricky</td>
+                <td>Hipólito</td>
+                <td>999999999</td>
+                <td>enricky@email</td>
+              </tr>
+              <tr>
+                <td>Enricky</td>
+                <td>Hipólito</td>
+                <td>999999999</td>
+                <td>enricky@email</td>
+              </tr>
+              <tr>
+                <td>Enricky</td>
+                <td>Hipólito</td>
+                <td>999999999</td>
+                <td>enricky@email</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+    <%- include("includes/scripts") %>
+  </body>
 </html>

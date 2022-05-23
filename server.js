@@ -4,7 +4,7 @@ const path = require("path");
 const routes = require("./routes");
 const mongoose = require("mongoose");
 
-const helmet = require("helmet");
+//const helmet = require("helmet");
 //const csrf = require("csurf");
 
 const app = express();
@@ -31,7 +31,7 @@ const sessionOptions = session({
   },
 });
 
-app.use(helmet());
+//app.use(helmet()); //é recomendado desativar para desenvolvimento.
 app.use(flash()); //mensagens para o usuário
 app.use(sessionOptions);
 
