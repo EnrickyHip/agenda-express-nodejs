@@ -34,7 +34,10 @@
     "express-session": "^1.17.3",
     "helmet": "^5.1.0",
     "mongoose": "^6.3.4",
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
     "prettier": "^2.6.2",
-    "regenerator-runtime": "^0.13.9"
+    "regenerator-runtime": "^0.13.9",
+    "validator": "^13.7.0"
   }
 }

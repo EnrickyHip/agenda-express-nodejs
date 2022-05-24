@@ -1,0 +1,14 @@
+<% if(errors.length) { %>
+
+  <div class="row">
+    <div class="col my-12">
+      <% errors.forEach(error => { %>
+        <div class="alert alert-danger">
+          <%= error  %> <br />
+        </div>
+    <% }); %>
+
+    </div>
+  </div>
+
+<% } %>
