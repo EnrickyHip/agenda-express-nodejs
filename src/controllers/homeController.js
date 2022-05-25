@@ -1,3 +1,7 @@
 exports.index = (request, response) => {
-  response.render("index");
+  if (request.session.user) {
+    return response.render("index");
+  }
+
+  return response.redirect("register");
 };

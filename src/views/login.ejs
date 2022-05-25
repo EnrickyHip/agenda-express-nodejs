@@ -8,37 +8,45 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-4"></div>
+        <div class="col-lg-3"></div>
 
-        <div class="col-lg-4 my-4">
+        <div class="col-lg-6 my-4">
           <h1 class="text-center">Login</h1>
           <p class="text-center lead">Entre no site</p>
 
           <%- include("includes/errorMEssages") %>
 
           <div class="row my-4 p-0">
-            <form action="/login" method="post">
-              <!-- <input type="hidden" name="_csrf" value="<%# csrfToken %>"> -->
+            <div class="col-2"></div>
 
-              <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-              </div>
+            <div class="col-8">
+              <form action="/login" method="post">
+                <!-- <input type="hidden" name="_csrf" value="<%# csrfToken %>"> -->
 
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password">
-              </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email address</label>
+                  <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                </div>
 
-              <button type="submit" class="btn btn-primary mb-3">Logar</button>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" name="password" class="form-control" id="password">
+                </div>
 
-              <div>
-                <span>Não tem conta?</span>
-                <a href="/register">clique aqui para se registrar</a>
-              </div>
-            </form>
+                <button type="submit" class="btn btn-primary mb-3">Logar</button>
+
+                <div>
+                  <span>Não tem conta?</span>
+                  <a href="/register">clique aqui para se registrar</a>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-2"></div>
           </div>
         </div>
+
+        <div class="col-lg-3"></div>
 
 
       </div>

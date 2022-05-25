@@ -1,4 +1,4 @@
-const Register = require("../models/RegisterModel");
+const { Register } = require("../models/RegisterModel");
 
 exports.index = (request, response) => {
   response.render("register");
@@ -18,7 +18,12 @@ exports.register = async (request, response) => {
       return;
     }
 
-    response.send("usuário registrado com sucesso!");
+    if (register.user) {
+      request.session.save(() => {
+        request.session.user = register.user;
+        response.redirect("/");
+      });
+    }
   } catch (error) {
     response.render("404");
   }

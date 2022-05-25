@@ -10,8 +10,14 @@
       <ul class="navbar-nav ms-auto">
 
         <li class="nav-item me-4 d-flex">
-          <a class="nav-link link-light" href="./register">Registrar</a>
-          <a class="nav-link link-light" href="./login">Login</a>
+          <% if (user) { %>
+            <a href="./logout" class="nav-link link-light">Logout</a>
+          <% } %>
+
+          <% if (!user) { %>
+            <a class="nav-link link-light" href="./register">Registrar</a>
+            <a class="nav-link link-light" href="./login">Login</a>
+          <% } %>
         </li>
       </ul>
     </div>

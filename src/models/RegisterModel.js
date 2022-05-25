@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcryptjs = require("bcryptjs");
+const stringfyObject = require("../modules/stringfyObject");
 
 const RegisterSchema = new mongoose.Schema({
   email: { type: String, required: true },
@@ -20,16 +21,13 @@ class Register {
     this.validate();
     if (this.errors.length) return; //se houver qualquer erro nos dados do formulário, o sistema não irá verificar se o usuário existe
 
-    await this.checkUser(); // checa se o usuário já existe
-    if (this.errors.length) return;
+    this.user = await RegisterModel.findOne({ email: this.body.email });
+    if (this.user) return this.errors.push("Usuário já existente");
 
     this.hashPassword();
     delete this.body.confirmPassword; //deleta a chave confirmPassword do body
-    try {
-      this.user = await RegisterModel.create(this.body); //registra o usuário no banco de dados. //*PRECISA SER ASSÍNCRONO.
-    } catch (error) {
-      this.errors.push("houve um erro na conexão com o banco de dados.");
-    }
+
+    this.user = await RegisterModel.create(this.body); //registra o usuário no banco de dados. //*PRECISA SER ASSÍNCRONO.
   }
 
   validate() {
@@ -39,7 +37,9 @@ class Register {
   }
 
   validateEmail() {
-    if (!validator.isEmail(this.body.email)) this.errors.push("E-mail Inválido");
+    if (!validator.isEmail(this.body.email)) {
+      return this.errors.push("E-mail Inválido");
+    }
   }
 
   validatePassoword() {
@@ -49,18 +49,9 @@ class Register {
     if (this.body.password !== this.body.confirmPassword) this.errors.push("Senhas não coincidem");
   }
 
-  async checkUser() {
-    const user = await RegisterModel.findOne({ email: this.body.email });
-    if (user) this.errors.push("Usuário já existente");
-  }
-
   //método que limpa o objeto
   cleanUp() {
-    for (const key in this.body) {
-      if (typeof this.body[key] !== "string") {
-        this.body[key] = "";
-      }
-    }
+    this.body = stringfyObject(this.body);
 
     this.body = {
       email: this.body.email,
@@ -76,4 +67,4 @@ class Register {
   }
 }
 
-module.exports = Register;
+module.exports = { Register, RegisterModel };

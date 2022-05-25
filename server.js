@@ -19,7 +19,7 @@ mongoose
 const session = require("express-session");
 const MongoStore = require("connect-mongo"); //MongoStore guarda as sessões no banco de dados
 const flash = require("connect-flash");
-const { globalErrors } = require("./src/middlewares/errorsMiddlewares");
+const globalMiddlware = require("./src/middlewares/globalMiddleware");
 
 const sessionOptions = session({
   secret: "segredinho hihi",
@@ -46,7 +46,7 @@ app.use(express.static(path.resolve(__dirname, "public")));
 
 //app.use(checkCsrfError);
 //app.use(csrfMiddleware);
-app.use(globalErrors);
+app.use(globalMiddlware);
 app.use(routes);
 
 app.set("views", path.resolve(__dirname, "src", "views")); //define a pasta das views
