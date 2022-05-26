@@ -16,16 +16,18 @@ exports.login = async (request, response) => {
     if (login.errors.length) {
       request.flash("errors", login.errors);
       request.session.save(() => {
-        response.redirect("back"); //caso haja erros no registro, o usuário é redirecionado de volta à página de registro.
+        //salva os erros no banco de dados para que fiquem salvos e apareçam na tela.
+        response.redirect("back"); //caso haja erros no login, o usuário é redirecionado de volta à página de login.
       });
       return;
     }
 
     if (login.user) {
+      request.session.user = login.user;
       request.session.save(() => {
-        request.session.user = login.user;
-        response.redirect("/");
+        response.redirect("/agenda");
       });
+      return;
     }
   } catch (error) {
     console.log(error);

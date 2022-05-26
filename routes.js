@@ -6,6 +6,8 @@ const loginController = require("./src/controllers/loginController");
 
 routes.get("/", homeController.index);
 
+routes.get("/agenda", homeController.agenda);
+
 routes.get("/register", registerController.index);
 routes.post("/register", registerController.register);
 

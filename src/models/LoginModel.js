@@ -16,13 +16,18 @@ class LoginModel {
 
     if (this.errors.length) return;
 
-    this.user = await RegisterModel.findOne({ email: this.body.email });
-    if (!this.user) return this.errors.push("Usuário não existe"); // checa se o usuário já existe
+    this.user = await this.getUser();
+    if (!this.user) return this.errors.push("Usuário não existe");
+    // checa se o usuário já existe
 
     if (!this.passwordsMatch()) {
       this.user = null;
       return this.errors.push("senha incorreta");
     }
+  }
+
+  async getUser() {
+    return await RegisterModel.findOne({ email: this.body.email });
   }
 
   passwordsMatch() {

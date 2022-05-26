@@ -1,59 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
   <%- include("includes/head") %>
 
   <body>
+
     <%- include("includes/navbar") %>
+
+    <h1 class="text-center mt-4">Bem vindo à Agenda!</h1>
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-2"></div>
+        <div class="col-lg-3"></div>
 
-        <div class="col-lg-8 my-4">
-          <h1 class="text-center">Agenda</h1>
+        <div class="col-lg-6 my-4 text-center">
 
-          <% if (user) { %>
-            <p class="text-center lead">Olá <%= user.email %>!  Aqui estão seus contatos</p>
-          <% }  else { %>
-            <p class="text-center lead">Aqui estão seus contatos</p>
-          <% } %>
+          <div class="my-5">
+            <h3 class="my-4">Registre-se no sistema: </h3>
+            <a href="/register" class="btn btn-dark">Registrar-se</a>
+          </div>
 
-          <div class="responsive-table my-2">
-            <table class="table">
-              <thead>
-                <th>Nome</th>
-                <th>Sobrenome</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-              </thead>
-              <tr>
-                <td>Enricky</td>
-                <td>Hipólito</td>
-                <td>999999999</td>
-                <td>enricky@email</td>
-              </tr>
-              <tr>
-                <td>Enricky</td>
-                <td>Hipólito</td>
-                <td>999999999</td>
-                <td>enricky@email</td>
-              </tr>
-              <tr>
-                <td>Enricky</td>
-                <td>Hipólito</td>
-                <td>999999999</td>
-                <td>enricky@email</td>
-              </tr>
-            </table>
+          <div class="my-5">
+            <h3 class="my-4">Caso já tenha uma conta, logue sua conta: </h3>
+            <a href="/login" class="btn btn-dark">Logar-se</a>
           </div>
 
         </div>
 
-        <div class="col-lg-2"></div>
+        <div class="col-lg-3"></div>
+
+
       </div>
     </div>
 
+
+
     <%- include("includes/scripts") %>
+
   </body>
 </html>
+

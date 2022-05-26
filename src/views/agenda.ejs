@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+  <%- include("includes/head") %>
+
+  <body>
+    <%- include("includes/navbar") %>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2"></div>
+
+        <div class="col-lg-8 my-4">
+          <h1 class="text-center">Agenda</h1>
+
+          <% if (user) { %>
+            <p class="text-center lead">Olá <%= user.email %>!  Aqui estão seus contatos</p>
+          <% }  else { %>
+            <p class="text-center lead">Aqui estão seus contatos</p>
+          <% } %>
+
+          <div class="responsive-table my-2">
+            <table class="table">
+              <thead>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+              </thead>
+              <tr>
+                <td>Enricky</td>
+                <td>Hipólito</td>
+                <td>999999999</td>
+                <td>enricky@email</td>
+              </tr>
+              <tr>
+                <td>Enricky</td>
+                <td>Hipólito</td>
+                <td>999999999</td>
+                <td>enricky@email</td>
+              </tr>
+              <tr>
+                <td>Enricky</td>
+                <td>Hipólito</td>
+                <td>999999999</td>
+                <td>enricky@email</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+    <%- include("includes/scripts") %>
+  </body>
+</html>

@@ -19,12 +19,14 @@ exports.register = async (request, response) => {
     }
 
     if (register.user) {
+      request.session.user = register.user;
       request.session.save(() => {
-        request.session.user = register.user;
-        response.redirect("/");
+        response.redirect("/agenda");
       });
+      return;
     }
   } catch (error) {
+    console.log(error);
     response.render("404");
   }
 };

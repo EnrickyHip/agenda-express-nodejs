@@ -21,13 +21,16 @@ class Register {
     this.validate();
     if (this.errors.length) return; //se houver qualquer erro nos dados do formulário, o sistema não irá verificar se o usuário existe
 
-    this.user = await RegisterModel.findOne({ email: this.body.email });
-    if (this.user) return this.errors.push("Usuário já existente");
+    if (await this.userExists()) return this.errors.push("Usuário já existente");
 
     this.hashPassword();
     delete this.body.confirmPassword; //deleta a chave confirmPassword do body
 
     this.user = await RegisterModel.create(this.body); //registra o usuário no banco de dados. //*PRECISA SER ASSÍNCRONO.
+  }
+
+  async userExists() {
+    return await RegisterModel.findOne({ email: this.body.email });
   }
 
   validate() {
