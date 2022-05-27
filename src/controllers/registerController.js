@@ -12,17 +12,13 @@ exports.register = async (request, response) => {
 
     if (register.errors.length) {
       request.flash("errors", register.errors);
-      request.session.save(() => {
-        response.redirect("back"); //caso haja erros no registro, o usuário é redirecionado de volta à página de registro.
-      });
+      request.session.save(() => response.redirect("back")); //caso haja erros no registro, o usuário é redirecionado de volta à página de registro.
       return;
     }
 
     if (register.user) {
       request.session.user = register.user;
-      request.session.save(() => {
-        response.redirect("/agenda");
-      });
+      request.session.save(() => response.redirect("/agenda"));
       return;
     }
   } catch (error) {

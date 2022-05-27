@@ -19,6 +19,7 @@ mongoose
 const session = require("express-session");
 const MongoStore = require("connect-mongo"); //MongoStore guarda as sessões no banco de dados
 const flash = require("connect-flash");
+
 const globalMiddlware = require("./src/middlewares/globalMiddleware");
 
 const sessionOptions = session({
