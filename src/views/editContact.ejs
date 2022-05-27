@@ -11,7 +11,7 @@
         <div class="col-lg-3"></div>
 
         <div class="col-lg-6 my-4">
-          <h1 class="text-center">Cadastrar Contato</h1>
+          <h1 class="text-center">Editar Contato</h1>
 
           <%- include("includes/errorMessages") %>
 
@@ -19,29 +19,29 @@
             <div class="col-2"></div>
 
             <div class="col-8">
-              <form action="/contacts/add" method="post">
+              <form action="/contacts/edit/<%= contact._id %>" method="post">
                 <!-- <input type="hidden" name="_csrf" value="<%# csrfToken %>"> -->
                 <div class="mb-3">
                   <label for="name" class="form-label">Nome</label>
-                  <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp">
+                  <input value="<%= contact.name %>" type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp">
                 </div>
 
                 <div class="mb-3">
                   <label for="last-name" class="form-label">Sobrenome</label>
-                  <input type="text" name="last-name" class="form-control" id="last-name" aria-describedby="emailHelp">
+                  <input value="<%= contact.lastName %>" type="text" name="last-name" class="form-control" id="last-name" aria-describedby="emailHelp">
                 </div>
 
                 <div class="mb-3">
                   <label for="email" class="form-label">Email address</label>
-                  <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                  <input value="<%= contact.email %>" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
                 </div>
 
                 <div class="mb-3">
                   <label for="phone" class="form-label">Telefone</label>
-                  <input type="tel" name="phone" class="form-control" id="phone">
+                  <input value="<%= contact.phone %>" type="tel" name="phone" class="form-control" id="phone">
                 </div>
 
-                <button type="submit" class="btn btn-primary mb-3">Cadastrar</button>
+                <button type="submit" class="btn btn-primary mb-3">Salvar</button>
               </form>
             </div>
 

@@ -18,7 +18,7 @@ exports.register = async (request, response) => {
 
     if (register.user) {
       request.session.user = register.user;
-      request.session.save(() => response.redirect("/agenda"));
+      request.session.save(() => response.redirect("/contacts"));
       return;
     }
   } catch (error) {

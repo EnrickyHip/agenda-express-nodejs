@@ -12,11 +12,16 @@ const ContactSchema = new mongoose.Schema({
 
 const ContactModel = mongoose.model("Contact", ContactSchema);
 
-class ContactRegister {
+class Contact {
   constructor(postBody) {
     this.body = postBody;
     this.errors = [];
     this.contact = null;
+  }
+
+  static async getUserById(id) {
+    if (typeof id !== "string") return;
+    return await ContactModel.findById(id);
   }
 
   async register() {
@@ -26,6 +31,18 @@ class ContactRegister {
     if (await this.contactExists()) return this.errors.push("contato já existe");
 
     this.contact = await ContactModel.create(this.body);
+  }
+
+  async edit(id) {
+    if (typeof id !== "string") return;
+
+    this.validate();
+    if (this.errors.length) return;
+
+    const contact = await this.contactExists();
+    if (contact && `${contact._id}` !== id) return this.errors.push("E-mail ou Telefone já estão em uso");
+
+    this.contact = await ContactModel.findByIdAndUpdate(id, this.body, { new: true });
   }
 
   async contactExists() {
@@ -95,4 +112,4 @@ class ContactRegister {
   }
 }
 
-module.exports = ContactRegister;
+module.exports = Contact;

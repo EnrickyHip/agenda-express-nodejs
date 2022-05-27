@@ -17,7 +17,7 @@ exports.login = async (request, response) => {
 
     if (login.user) {
       request.session.user = login.user;
-      request.session.save(() => response.redirect("/agenda"));
+      request.session.save(() => response.redirect("/contacts"));
       return;
     }
   } catch (error) {
