@@ -1,7 +1,9 @@
 const Contact = require("../models/contactModel");
 
-exports.index = (request, response) => {
-  return response.render("contacts"); //o método render carrega uma página ejs.
+exports.index = async (request, response) => {
+  const contacts = await Contact.getAllContacts();
+
+  return response.render("contacts", { contacts }); //o método render carrega uma página ejs.
 };
 
 exports.add = (request, response) => {
@@ -21,7 +23,7 @@ exports.addContact = async (request, response) => {
 
     if (contact.contact) {
       request.flash("success", "Contato criado com sucesso");
-      request.session.save(() => response.redirect(`/contacts/edit/${contact.contact._id}`));
+      request.session.save(() => response.redirect("/contacts"));
       return;
     }
   } catch (error) {
@@ -35,7 +37,7 @@ exports.edit = async (request, response) => {
   if (!id) return response.render("editErrorParam");
 
   try {
-    const contact = await Contact.getUserById(id);
+    const contact = await Contact.getContactById(id);
 
     response.render("editContact", { contact });
   } catch (error) {
@@ -63,6 +65,25 @@ exports.editContact = async (request, response) => {
       request.session.save(() => response.redirect("/contacts"));
       return;
     }
+  } catch (error) {
+    console.log(error);
+    return response.render("editErrorParam");
+  }
+};
+
+exports.delete = async (request, response) => {
+  const id = request.params.id;
+  if (!id) return response.render("editErrorParam");
+
+  try {
+    const contact = await Contact.delete(id);
+    if (contact) {
+      request.flash("warnings", "contato apagado com sucesso");
+      request.session.save(() => response.redirect("/contacts"));
+      return;
+    }
+
+    return response.render("editErrorParam");
   } catch (error) {
     console.log(error);
     return response.render("editErrorParam");

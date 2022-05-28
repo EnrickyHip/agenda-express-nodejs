@@ -19,16 +19,27 @@ class Contact {
     this.contact = null;
   }
 
-  static async getUserById(id) {
+  static async getContactById(id) {
     if (typeof id !== "string") return;
     return await ContactModel.findById(id);
+  }
+
+  static async getAllContacts() {
+    return await ContactModel.find().sort({ dateCreated: -1 });
+  }
+
+  static async delete(id) {
+    if (typeof id !== "string") return;
+    return await ContactModel.findOneAndDelete({ _id: id });
   }
 
   async register() {
     this.validate();
     if (this.errors.length) return;
 
-    if (await this.contactExists()) return this.errors.push("contato já existe");
+    const [emailExists, phoneExists] = await this.contactExists();
+
+    if (emailExists || phoneExists) return this.errors.push("contato já existe");
 
     this.contact = await ContactModel.create(this.body);
   }
@@ -39,12 +50,21 @@ class Contact {
     this.validate();
     if (this.errors.length) return;
 
-    const contact = await this.contactExists();
-    if (contact && `${contact._id}` !== id) return this.errors.push("E-mail ou Telefone já estão em uso");
+    const [emailExists, phoneExists] = await this.contactExists(id);
+
+    // caso exista um contato com o email/telefone enviado, emailContactId/phoneContactId irão receber o id do usuário refeirdo, caso contrário, irão receber o id do usuário que está sendo editado.
+    const emailContactId = emailExists ? `${emailExists._id}` : id;
+    const phoneContactId = phoneExists ? `${phoneExists._id}` : id;
+
+    //se o id dos contatos não forem iguais ao do contato que está sendo editado, eles já estão em uso por outros usuários.
+    if (emailContactId !== id || phoneContactId !== id) {
+      return this.errors.push("E-mail ou Telefone já estão em uso");
+    }
 
     this.contact = await ContactModel.findByIdAndUpdate(id, this.body, { new: true });
   }
 
+  //esse método serve para saber se um contato já existe. Como tanto o telefone quanto o email podem ser usados, o método retorna um array com os usuários encontrados com o email e telefone enviados no formulário.
   async contactExists() {
     let email = null;
     let phone = null;
@@ -57,7 +77,7 @@ class Contact {
       phone = await ContactModel.findOne({ phone: this.body.phone });
     }
 
-    return phone || email;
+    return [email, phone];
   }
 
   validate() {
@@ -75,7 +95,7 @@ class Contact {
 
   validatePhone() {
     const match = /[0-9]+/g;
-    if (!this.body.phone.match(match)) {
+    if (!this.body.phone.match(match) || this.body.phone.length < 9) {
       return this.errors.push("Telefone Inválido");
     }
   }

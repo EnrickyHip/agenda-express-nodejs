@@ -20,6 +20,7 @@
           <% } %>
 
           <%- include("includes/successMessages") %>
+          <%- include("includes/warningMessages") %>
 
           <div class="responsive-table my-2">
             <table class="table">
@@ -28,25 +29,20 @@
                 <th>Sobrenome</th>
                 <th>Telefone</th>
                 <th>E-mail</th>
+                <th>Editar</th>
+                <th>Apagar</th>
               </thead>
-              <tr>
-                <td>Enricky</td>
-                <td>Hipólito</td>
-                <td>999999999</td>
-                <td>enricky@email</td>
-              </tr>
-              <tr>
-                <td>Enricky</td>
-                <td>Hipólito</td>
-                <td>999999999</td>
-                <td>enricky@email</td>
-              </tr>
-              <tr>
-                <td>Enricky</td>
-                <td>Hipólito</td>
-                <td>999999999</td>
-                <td>enricky@email</td>
-              </tr>
+
+              <% contacts.forEach((contact) => { %>
+                <tr>
+                  <td><%= contact.name  %> </td>
+                  <td><%= contact.lastName  %> </td>
+                  <td><%= contact.phone  %> </td>
+                  <td><%= contact.email  %> </td>
+                  <td><a class="link-primary" href="contacts/edit/<%= contact._id %>">Editar</a> </td>
+                  <td><a class="link-danger" href="contacts/delete/<%= contact._id %>">Apagar</a> </td>
+                </tr>
+              <% }) %>
             </table>
           </div>
 

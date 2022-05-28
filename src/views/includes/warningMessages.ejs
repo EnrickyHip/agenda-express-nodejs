@@ -1,0 +1,15 @@
+<% if(warnings.length) { %>
+
+  <div class="row">
+    <div class="col my-12">
+
+      <% warnings.forEach(warning => { %>
+        <div class="text-center alert alert-warning">
+          <%= warning  %>
+        </div>
+      <% }); %>
+
+    </div>
+  </div>
+
+<% } %>
