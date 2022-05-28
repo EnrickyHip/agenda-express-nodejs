@@ -4,6 +4,7 @@ const bcryptjs = require("bcryptjs");
 const stringfyObject = require("../modules/stringfyObject");
 
 const RegisterSchema = new mongoose.Schema({
+  name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, require: true },
 });
@@ -35,8 +36,16 @@ class Register {
 
   validate() {
     this.cleanUp();
+    this.validateName();
     this.validateEmail();
     this.validatePassoword();
+  }
+
+  validateName() {
+    const match = /^[a-zA-Z0-9_, áàâãéèêíïóôõöúçñ]*$/;
+    if (!this.body.name || !this.body.name.match(match)) {
+      return this.errors.push("Nome inválido");
+    }
   }
 
   validateEmail() {
@@ -57,6 +66,7 @@ class Register {
     this.body = stringfyObject(this.body);
 
     this.body = {
+      name: this.body.name,
       email: this.body.email,
       password: this.body.password,
       confirmPassword: this.body["confirm-password"],

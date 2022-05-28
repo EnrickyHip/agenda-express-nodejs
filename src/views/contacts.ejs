@@ -14,7 +14,7 @@
           <h1 class="text-center">Agenda</h1>
 
           <% if (user) { %>
-            <p class="text-center lead">Olá <%= user.email %>!  Aqui estão seus contatos</p>
+            <p class="text-center lead">Olá <%= user.name %>!  Aqui estão seus contatos</p>
           <% }  else { %>
             <p class="text-center lead">Aqui estão seus contatos</p>
           <% } %>
@@ -22,29 +22,34 @@
           <%- include("includes/successMessages") %>
           <%- include("includes/warningMessages") %>
 
-          <div class="responsive-table my-2">
-            <table class="table">
-              <thead>
-                <th>Nome</th>
-                <th>Sobrenome</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-                <th>Editar</th>
-                <th>Apagar</th>
-              </thead>
+          <% if (contacts.length) { %>
+            <div class="responsive-table my-2">
+              <table class="table">
+                <thead>
+                  <th>Nome</th>
+                  <th>Sobrenome</th>
+                  <th>Telefone</th>
+                  <th>E-mail</th>
+                  <th>Editar</th>
+                  <th>Apagar</th>
+                </thead>
 
-              <% contacts.forEach((contact) => { %>
-                <tr>
-                  <td><%= contact.name  %> </td>
-                  <td><%= contact.lastName  %> </td>
-                  <td><%= contact.phone  %> </td>
-                  <td><%= contact.email  %> </td>
-                  <td><a class="link-primary" href="contacts/edit/<%= contact._id %>">Editar</a> </td>
-                  <td><a class="link-danger" href="contacts/delete/<%= contact._id %>">Apagar</a> </td>
-                </tr>
-              <% }) %>
-            </table>
-          </div>
+                <% contacts.forEach((contact) => { %>
+                  <tr>
+                    <td><%= contact.name  %> </td>
+                    <td><%= contact.lastName  %> </td>
+                    <td><%= contact.phone  %> </td>
+                    <td><%= contact.email  %> </td>
+                    <td><a class="link-primary" href="contacts/edit/<%= contact._id %>">Editar</a> </td>
+                    <td><a class="link-danger" href="contacts/delete/<%= contact._id %>">Apagar</a> </td>
+                  </tr>
+                <% }) %>
+              </table>
+            </div>
+
+          <% } else { %>
+            <p class="text-center lead">Não há contatos registrados.</p>
+          <% } %>
 
         </div>
 
