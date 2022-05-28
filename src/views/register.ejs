@@ -20,26 +20,30 @@
           <div class="row my-4 p-0">
             <div class="col-2"></div>
             <div class="col-8">
-              <form action="/register" method="post">
+              <form action="/register" method="post" id="register-form">
                 <!-- <input type="hidden" name="_csrf" value="<%# csrfToken %>"> -->
                 <div class="mb-3">
                   <label for="name" class="form-label">Nome</label>
                   <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" >
+                  <div id="register-name-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" >
+                  <div id="register-email-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3">
                   <label for="password" class="form-label">Senha</label>
                   <input type="password" name="password" class="form-control" id="password">
+                  <div id="register-password-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3">
                   <label for="confirm-password" class="form-label">Confirmar senha</label>
                   <input type="password" name="confirm-password" class="form-control" id="confirm-password">
+                  <div id="register-confirm-password-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3 form-check">

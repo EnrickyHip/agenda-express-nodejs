@@ -18,6 +18,8 @@ routes.get("/contacts/edit/:id?", loginRequired, contactsController.edit);
 routes.post("/contacts/edit/:id", loginRequired, contactsController.editContact);
 routes.get("/contacts/delete/:id", loginRequired, contactsController.delete);
 
+routes.post("/userExists", logoutRequired, registerController.userExists);
+
 routes.get("/register", logoutRequired, registerController.index);
 routes.post("/register", logoutRequired, registerController.register);
 

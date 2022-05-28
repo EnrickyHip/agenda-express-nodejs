@@ -26,3 +26,11 @@ exports.register = async (request, response) => {
     response.render("404");
   }
 };
+
+exports.userExists = async (request, response) => {
+  const register = new Register(request.body);
+  const userExists = await register.userExists();
+
+  if (userExists) return response.send(true);
+  return response.send(false);
+};
