@@ -30,3 +30,11 @@ exports.logout = (request, response) => {
   request.session.destroy();
   response.redirect("/");
 };
+
+exports.passwordMatches = async (request, response) => {
+  const login = new Login(request.body);
+  await login.getUser();
+  const passwordMatches = await login.passwordsMatch();
+
+  response.send(passwordMatches);
+};

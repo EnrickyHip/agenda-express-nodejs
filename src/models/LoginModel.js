@@ -16,7 +16,7 @@ class LoginModel {
 
     if (this.errors.length) return;
 
-    this.user = await this.getUser();
+    await this.getUser();
     if (!this.user) return this.errors.push("Usuário não existe");
     // checa se o usuário já existe
 
@@ -27,7 +27,7 @@ class LoginModel {
   }
 
   async getUser() {
-    return await RegisterModel.findOne({ email: this.body.email });
+    this.user = await RegisterModel.findOne({ email: this.body.email });
   }
 
   passwordsMatch() {

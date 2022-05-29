@@ -20,17 +20,19 @@
             <div class="col-2"></div>
 
             <div class="col-8">
-              <form action="/login" method="post">
+              <form id="login-form" action="/login" method="post">
                 <!-- <input type="hidden" name="_csrf" value="<%# csrfToken %>"> -->
 
                 <div class="mb-3">
                   <label for="email" class="form-label">Email address</label>
                   <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                  <div id="login-email-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3">
                   <label for="password" class="form-label">Password</label>
                   <input type="password" name="password" class="form-control" id="password">
+                  <div id="login-password-message" class="invalid-feedback"></div>
                 </div>
 
                 <button type="submit" class="btn btn-primary mb-3">Logar</button>
