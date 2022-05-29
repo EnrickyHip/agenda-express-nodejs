@@ -57,7 +57,7 @@ export default class Register {
     }
 
     try {
-      const _userExists = await userExists();
+      const _userExists = await userExists(this.emailInput.value);
 
       if (_userExists) {
         addInvalid(this.emailInput);

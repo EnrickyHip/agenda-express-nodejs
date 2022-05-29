@@ -31,5 +31,5 @@ exports.userExists = async (request, response) => {
   const register = new Register(request.body);
   const userExists = await register.userExists();
 
-  return response.send(userExists);
+  return response.send(!!userExists);
 };
