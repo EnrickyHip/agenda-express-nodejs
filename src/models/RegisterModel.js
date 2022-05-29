@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcryptjs = require("bcryptjs");
 const stringfyObject = require("../modules/stringfyObject");
+const { nameMatch } = require("./../modules/constants");
 
 const RegisterSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -42,8 +43,7 @@ class Register {
   }
 
   validateName() {
-    const match = /^[a-zA-Z0-9_, áàâãéèêíïóôõöúçñ]*$/;
-    if (!this.body.name || !this.body.name.match(match)) {
+    if (!this.body.name || !this.body.name.match(nameMatch)) {
       return this.errors.push("Nome inválido");
     }
   }

@@ -1,6 +1,7 @@
-import { addValid, addInvalid } from "./validateInput";
+import { addValid, addInvalid, removeValidation } from "./validateInput";
 import validator from "validator";
 import userExists from "./userExists";
+import { nameMatch } from "../../src/modules/constants";
 
 export default class Register {
   constructor(form) {
@@ -35,9 +36,7 @@ export default class Register {
   }
 
   validateName() {
-    const match = /^[a-zA-Z0-9_, áàâãéèêíïóôõöúçñ]*$/;
-
-    if (!this.nameInput.value || !this.nameInput.value.match(match)) {
+    if (!this.nameInput.value || !this.nameInput.value.match(nameMatch)) {
       addInvalid(this.nameInput);
       this.nameMessage.innerHTML = "Nome Inválido";
       this.invalids.push(this.nameInput);
@@ -56,17 +55,17 @@ export default class Register {
       return;
     }
 
-    try {
-      const _userExists = await userExists(this.emailInput.value);
+    await this.checkUserExists();
+  }
 
-      if (_userExists) {
-        addInvalid(this.emailInput);
-        this.emailMessage.innerHTML = "Usuário já existe";
-        this.invalids.push(this.emailInput);
-        return;
-      }
-    } catch (error) {
-      console.log(error);
+  async checkUserExists() {
+    const _userExists = await userExists(this.emailInput.value);
+
+    if (_userExists) {
+      addInvalid(this.emailInput);
+      this.emailMessage.innerHTML = "Usuário já existe";
+      this.invalids.push(this.emailInput);
+      return;
     }
 
     addValid(this.emailInput);
@@ -77,6 +76,7 @@ export default class Register {
     if (this.passwordInput.value.length < 3 || this.passwordInput.value.length > 50) {
       addInvalid(this.passwordInput);
       addInvalid(this.confirmPasswordInout);
+      removeValidation(this.confirmPasswordInout);
 
       this.passwordMessage.innerHTML = "Sua senha precisa ter entre 3 e 50 caracteres";
 

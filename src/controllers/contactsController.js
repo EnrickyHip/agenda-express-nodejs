@@ -89,3 +89,20 @@ exports.delete = async (request, response) => {
     return response.render("editErrorParam");
   }
 };
+
+exports.contactExists = async (request, response) => {
+  const contact = new Contact(request.body);
+  let [emailExists, phoneExists] = await contact.contactExists();
+
+  if (request.params.id) {
+    const id = request.params.id;
+
+    const emailContactId = emailExists ? `${emailExists._id}` : id;
+    const phoneContactId = phoneExists ? `${phoneExists._id}` : id;
+
+    if (emailContactId === id) emailExists = false;
+    if (phoneContactId === id) phoneExists = false;
+  }
+
+  response.send([!!emailExists, !!phoneExists]);
+};

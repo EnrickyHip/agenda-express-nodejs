@@ -5,12 +5,19 @@ import "./assets/css/style.css";
 
 import Register from "./modules/Register";
 import Login from "./modules/Login";
+import Contact from "./modules/Contact";
 
 const registerForm = document.querySelector("#register-form");
 const loginForm = document.querySelector("#login-form");
+const contactForm = document.querySelector(".contact-form");
 
 if (registerForm) {
   const register = new Register(registerForm);
+  register.addListener();
+}
+
+if (contactForm) {
+  const register = new Contact(contactForm);
   register.addListener();
 }
 

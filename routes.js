@@ -20,6 +20,7 @@ routes.get("/contacts/delete/:id", loginRequired, contactsController.delete);
 
 routes.post("/userExists", logoutRequired, registerController.userExists);
 routes.post("/passwordMatches", logoutRequired, loginController.passwordMatches);
+routes.post("/contactExists/:id?", loginRequired, contactsController.contactExists);
 
 routes.get("/register", logoutRequired, registerController.index);
 routes.post("/register", logoutRequired, registerController.register);

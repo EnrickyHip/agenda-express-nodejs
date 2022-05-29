@@ -23,30 +23,26 @@ export default class Login {
 
   async validate() {
     this.invalids = [];
-    if (!(await this.validateEmail())) return;
+    if (!(await this.checkUserExists())) return;
     await this.validatePassword();
 
     if (!this.invalids.length) this.form.submit();
   }
 
-  async validateEmail() {
-    try {
-      const existsUser = await userExists(this.emailInput.value);
+  async checkUserExists() {
+    const existsUser = await userExists(this.emailInput.value);
 
-      if (!existsUser) {
-        addInvalid(this.emailInput);
-        this.emailMessage.innerHTML = "Usuário não existe";
-        this.invalids.push(this.emailInput);
-        return false;
-      }
-
-      addValid(this.emailInput);
-      this.emailMessage.innerHTML = "";
-
-      return true;
-    } catch (error) {
-      console.log(error);
+    if (!existsUser) {
+      addInvalid(this.emailInput);
+      this.emailMessage.innerHTML = "Usuário não existe";
+      this.invalids.push(this.emailInput);
+      return false;
     }
+
+    addValid(this.emailInput);
+    this.emailMessage.innerHTML = "";
+
+    return true;
   }
 
   async validatePassword() {
