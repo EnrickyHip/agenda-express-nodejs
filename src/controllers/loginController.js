@@ -36,5 +36,5 @@ exports.passwordMatches = async (request, response) => {
   await login.getUser();
   const passwordMatches = await login.passwordsMatch();
 
-  response.send(!!passwordMatches);
+  response.send(passwordMatches);
 };

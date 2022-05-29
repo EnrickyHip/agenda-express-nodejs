@@ -94,6 +94,7 @@ exports.contactExists = async (request, response) => {
   const contact = new Contact(request.body);
   let [emailExists, phoneExists] = await contact.contactExists();
 
+  //se existir parametro significa que é o formulario de edição.
   if (request.params.id) {
     const id = request.params.id;
 

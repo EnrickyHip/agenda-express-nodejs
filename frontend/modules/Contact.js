@@ -32,9 +32,9 @@ export default class Contact {
     this.invalids = [];
     this.validateName();
 
-    !this.lastNameInput.value.length && removeValidation(this.lastNameInput);
-    !this.emailInput.value.length && removeValidation(this.emailInput);
-    !this.phoneInput.value.length && removeValidation(this.phoneInput);
+    !this.lastNameInput.value && removeValidation(this.lastNameInput);
+    !this.emailInput.value && removeValidation(this.emailInput);
+    !this.phoneInput.value && removeValidation(this.phoneInput);
 
     if (!this.emailInput.value && !this.phoneInput.value) {
       addInvalid(this.emailInput);
@@ -110,6 +110,7 @@ export default class Contact {
       this.invalids.push(this.emailInput);
     } //eslint-disable-next-line
     else {
+      //email é opcional, por isso é necessário ter um valor para validar o input.
       if (this.emailInput.value && !this.invalids.includes(this.emailInput)) {
         addValid(this.emailInput);
         this.emailMessage.innerHTML = "";
@@ -122,6 +123,7 @@ export default class Contact {
       this.invalids.push(this.phoneInput);
     } //eslint-disable-next-line
     else {
+      //telefone é opcional, por isso é necessário ter um valor para validar o input.
       if (this.phoneInput.value && !this.invalids.includes(this.phoneInput)) {
         addValid(this.phoneInput);
         this.phoneMessage.innerHTML = "";

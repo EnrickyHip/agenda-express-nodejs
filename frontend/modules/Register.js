@@ -58,6 +58,7 @@ export default class Register {
     await this.checkUserExists();
   }
 
+  //checa se o email digitado já está em uso
   async checkUserExists() {
     const _userExists = await userExists(this.emailInput.value);
 
@@ -72,6 +73,7 @@ export default class Register {
     this.emailMessage.innerHTML = "";
   }
 
+  //valida as senhas
   validatePassoword() {
     if (this.passwordInput.value.length < 3 || this.passwordInput.value.length > 50) {
       addInvalid(this.passwordInput);
@@ -87,6 +89,7 @@ export default class Register {
     addValid(this.passwordInput);
     this.passwordMessage.innerHTML = "";
 
+    //testa se as duas senhas coincidem
     if (this.passwordInput.value !== this.confirmPasswordInout.value) {
       addInvalid(this.confirmPasswordInout);
 

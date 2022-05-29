@@ -31,5 +31,5 @@ exports.userExists = async (request, response) => {
   const register = new Register(request.body);
   const userExists = await register.userExists();
 
-  return response.send(!!userExists);
+  return response.send(!!userExists); //negando duas vezes pois userExists é um objeto de usuário. Portanto isso altera o valor da variável para true ou false necessariamente.
 };

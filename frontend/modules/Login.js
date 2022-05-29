@@ -1,4 +1,4 @@
-import { addValid, addInvalid } from "./validateInput";
+import { addValid, addInvalid, removeValidation } from "./validateInput";
 import userExists from "./userExists";
 import passwordMatches from "./passwordMatches";
 
@@ -23,10 +23,12 @@ export default class Login {
 
   async validate() {
     this.invalids = [];
-    if (!(await this.checkUserExists())) return;
+    await this.checkUserExists();
+
+    if (this.invalids.length) return;
     await this.validatePassword();
 
-    if (!this.invalids.length) this.form.submit();
+    if (!this.invalids.length) return this.form.submit();
   }
 
   async checkUserExists() {
@@ -36,31 +38,24 @@ export default class Login {
       addInvalid(this.emailInput);
       this.emailMessage.innerHTML = "Usuário não existe";
       this.invalids.push(this.emailInput);
-      return false;
+      removeValidation(this.passwordInput);
+      return;
     }
 
     addValid(this.emailInput);
     this.emailMessage.innerHTML = "";
-
-    return true;
   }
 
   async validatePassword() {
-    try {
-      const matches = await passwordMatches(this.emailInput.value, this.passwordInput.value);
-      if (!matches) {
-        addInvalid(this.passwordInput);
-        this.passwordMessage.innerHTML = "Senha incorreta";
-        this.invalids.push(this.passwordInput);
-        return false;
-      }
-
-      addValid(this.passwordInput);
-      this.passwordMessage.innerHTML = "";
-
-      return true;
-    } catch (error) {
-      console.log(error);
+    const matches = await passwordMatches(this.emailInput.value, this.passwordInput.value);
+    if (!matches) {
+      addInvalid(this.passwordInput);
+      this.passwordMessage.innerHTML = "Senha incorreta";
+      this.invalids.push(this.passwordInput);
+      return;
     }
+
+    addValid(this.passwordInput);
+    this.passwordMessage.innerHTML = "";
   }
 }
