@@ -7,7 +7,7 @@ exports.index = async (request, response) => {
 };
 
 exports.add = (request, response) => {
-  response.render("addContact");
+  response.render("addContact", { values: {} });
 };
 
 exports.addContact = async (request, response) => {
@@ -17,7 +17,8 @@ exports.addContact = async (request, response) => {
 
     if (contact.errors.length) {
       request.flash("errors", contact.errors);
-      request.session.save(() => response.redirect("back"));
+      response.locals.errors = request.flash("errors");
+      request.session.save(() => response.render("addContact", { values: request.body }));
       return;
     }
 
@@ -34,12 +35,13 @@ exports.addContact = async (request, response) => {
 
 exports.edit = async (request, response) => {
   const id = request.params.id;
-  if (!id) return response.render("editErrorParam");
 
   try {
     const contact = await Contact.getContactById(id);
 
-    response.render("editContact", { contact });
+    if (!contact) return response.render("editErrorParam", { values: {} });
+
+    response.render("editContact", { values: contact });
   } catch (error) {
     console.log(error);
     return response.render("editErrorParam");
@@ -56,7 +58,8 @@ exports.editContact = async (request, response) => {
 
     if (contact.errors.length) {
       request.flash("errors", contact.errors);
-      request.session.save(() => response.redirect("back"));
+      response.locals.errors = request.flash("errors");
+      request.session.save(() => response.render("editContact", { values: { ...request.body, _id: id } }));
       return;
     }
 
@@ -73,7 +76,6 @@ exports.editContact = async (request, response) => {
 
 exports.delete = async (request, response) => {
   const id = request.params.id;
-  if (!id) return response.render("editErrorParam");
 
   try {
     const contact = await Contact.delete(id);

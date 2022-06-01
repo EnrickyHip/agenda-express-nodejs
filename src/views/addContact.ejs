@@ -24,25 +24,25 @@
                 <input type="hidden" id="input-id" value="" name="">
                 <div class="mb-3">
                   <label for="name" class="form-label">Nome</label>
-                  <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp">
+                  <input value="<%= values.name %>" type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp">
                   <div id="name-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3">
                   <label for="last-name" class="form-label">Sobrenome</label>
-                  <input type="text" name="last-name" class="form-control" id="last-name" aria-describedby="emailHelp">
+                  <input value="<%= values.lastName %>" type="text" name="lastName" class="form-control" id="last-name" aria-describedby="emailHelp">
                   <div id="last-name-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3">
                   <label for="email" class="form-label">Email address</label>
-                  <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                  <input value="<%= values.email %>" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
                   <div id="email-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3">
                   <label for="phone" class="form-label">Telefone</label>
-                  <input type="tel" name="phone" class="form-control" id="phone">
+                  <input value="<%= values.phone %>" type="tel" name="phone" class="form-control" id="phone">
                   <div id="phone-message" class="invalid-feedback"></div>
                 </div>
 

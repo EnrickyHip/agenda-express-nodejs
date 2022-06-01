@@ -125,7 +125,7 @@ class Contact {
 
     this.body = {
       name: this.body.name,
-      lastName: this.body["last-name"],
+      lastName: this.body.lastName,
       email: this.body.email,
       phone: this.body.phone,
     };

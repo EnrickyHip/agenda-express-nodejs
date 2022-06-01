@@ -69,7 +69,7 @@ class Register {
       name: this.body.name,
       email: this.body.email,
       password: this.body.password,
-      confirmPassword: this.body["confirm-password"],
+      confirmPassword: this.body.confirmPassword,
     };
   }
 

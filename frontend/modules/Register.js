@@ -11,7 +11,7 @@ export default class Register {
     this.nameInput = document.querySelector("#name");
     this.emailInput = document.querySelector("#email");
     this.passwordInput = document.querySelector("#password");
-    this.confirmPasswordInout = document.querySelector("#confirm-password");
+    this.confirmPasswordInput = document.querySelector("#confirm-password");
 
     this.nameMessage = document.querySelector("#register-name-message");
     this.emailMessage = document.querySelector("#register-email-message");
@@ -77,8 +77,8 @@ export default class Register {
   validatePassoword() {
     if (this.passwordInput.value.length < 3 || this.passwordInput.value.length > 50) {
       addInvalid(this.passwordInput);
-      addInvalid(this.confirmPasswordInout);
-      removeValidation(this.confirmPasswordInout);
+      addInvalid(this.confirmPasswordInput);
+      removeValidation(this.confirmPasswordInput);
 
       this.passwordMessage.innerHTML = "Sua senha precisa ter entre 3 e 50 caracteres";
 
@@ -90,15 +90,15 @@ export default class Register {
     this.passwordMessage.innerHTML = "";
 
     //testa se as duas senhas coincidem
-    if (this.passwordInput.value !== this.confirmPasswordInout.value) {
-      addInvalid(this.confirmPasswordInout);
+    if (this.passwordInput.value !== this.confirmPasswordInput.value) {
+      addInvalid(this.confirmPasswordInput);
 
       this.confirmPasswordMessage.innerHTML = "Senhas não coincidem";
-      this.invalids.push(this.confirmPasswordInout);
+      this.invalids.push(this.confirmPasswordInput);
       return;
     }
 
-    addValid(this.confirmPasswordInout);
+    addValid(this.confirmPasswordInput);
     this.confirmPasswordMessage.innerHTML = "";
   }
 }

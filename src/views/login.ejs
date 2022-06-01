@@ -25,13 +25,13 @@
 
                 <div class="mb-3">
                   <label for="email" class="form-label">Email address</label>
-                  <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                  <input value="<%= values.email  %>" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
                   <div id="login-email-message" class="invalid-feedback"></div>
                 </div>
 
                 <div class="mb-3">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" name="password" class="form-control" id="password">
+                  <input value="<%= values.password  %>" type="password" name="password" class="form-control" id="password">
                   <div id="login-password-message" class="invalid-feedback"></div>
                 </div>
 

@@ -1,7 +1,7 @@
 const { Register } = require("../models/RegisterModel");
 
 exports.index = (request, response) => {
-  response.render("register");
+  response.render("register", { values: {} });
 };
 
 // é essencial que essa função seja assíncrona, pois o registro do usuário depende da criação do registro no banco de dados, que é assíncrono. portanto, retorna uma promise
@@ -12,7 +12,8 @@ exports.register = async (request, response) => {
 
     if (register.errors.length) {
       request.flash("errors", register.errors);
-      request.session.save(() => response.redirect("back")); //caso haja erros no registro, o usuário é redirecionado de volta à página de registro.
+      response.locals.errors = request.flash("errors");
+      request.session.save(() => response.render("register", { values: request.body })); //caso haja erros no registro, o usuário é redirecionado de volta à página de registro.
       return;
     }
 
